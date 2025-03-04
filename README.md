@@ -1,135 +1,87 @@
-# File Content Finder
+# OmniSearch (OS) 🔍
 
-This repository contains `file-content-finder`, a set of scripts to search for a string in various file types, including PDFs, text files, images, spreadsheets, documents, SQLite databases, and more.
+OmniSearch (OS) is your ultimate content detective for files of all types! From PDFs and text files to images, spreadsheets, documents, SQLite databases, and more, OS scours your directories to find exactly what you’re looking for – fast and efficiently.
 
-## Features
+## Features ✨
 
-- Search for a string in multiple file types: PDFs, text, images, Excel files, documents, SQLite databases, audio, and video files.
-- Support for case-insensitive search.
-- Option to list only the files containing the search string.
-- Verbose mode to print executed commands.
-- Error handling with options to ignore errors and continue searching.
+- **Multi-Format Search:** Search through PDFs, text files, images, Excel files, Word documents, SQLite databases, and more.
+- **Flexible Filtering:** Specify file types, ignore certain extensions, or search entire directories.
+- **Case & Regex Options:** Toggle between case-sensitive and fixed-string (regex) searches.
+- **Verbose Mode:** See the exact commands being executed for complete transparency.
+- **Error Handling:** Option to ignore errors and keep searching.
+- **JSON Output:** Easily integrate with other tools by outputting results in JSON format.
 
-## Installation
+## Installation 🚀
 
-### Prerequisites
+OmniSearch is available via [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager). Follow these steps to install it:
 
-Ensure you have the following installed on your system:
+1. **Ensure Kevin's Package Manager is installed:**  
+   Check out the [package manager repository](https://github.com/kevinveenbirkenbach/package-manager) for setup instructions.
 
-1. **Python 3**: This script requires Python 3.
-2. **Package Managers**: `yay` and `pacman` for Arch Linux.
-3. **Pip**: Python package manager.
+2. **Install OmniSearch using the package manager:**  
+   Open your terminal and run:
+   ```bash
+   pkgmgr install os
+   ```
+   This installs OmniSearch and makes it globally available under the alias `os`.
 
-### Install Dependencies
+## Usage 🛠️
 
-Run the following commands to install necessary packages:
-
-```bash
-# Using yay for AUR packages
-yay -S python-pdf2image python-pypdf2 python-docx python-pptx
-
-# Using pacman for official repository packages
-sudo pacman -S python-pytesseract tesseract-data-eng pdfgrep python-xlrd
-```
-
-### Clone the Repository
+Once installed, you can start searching with the simple alias `os`:
 
 ```bash
-git clone https://github.com/kevinveenbirkenbach/file-content-finder.git
-cd file-content-finder
+os /path/to/directory "search term" [options]
 ```
 
-### Requirements File
+### Common Options
 
-Here is the `requirements.txt` file for pip:
+- `-t, --types`: Specify file types to search in (e.g., `*.txt`, `*.md`, `*.jpg`). If omitted, all files are searched.
+- `-p, --paths`: Define the paths to search. If not provided, the current directory is used.
+- `-v, --verbose`: Print the executed commands to the console.
+- `-i, --ignore`: Ignore errors and continue the search.
+- `-s, --skip`: List of file extensions to skip (e.g., `.zip`, `.tar`, `.gz`).
+- `-a, --add`: Extend the default list of skipped files with your own.
+- `-b, --binary-files`: Treat binary files as text for searching.
+- `-c, --case-sensitive`: Perform a case-sensitive search.
+- `-f, --fixed`: Use fixed-string search (disables regex).
+- `-j, --json`: Output the search results in JSON format.
 
-```text
-pytesseract
-pdf2image
-xlrd
-PyPDF2
-mutagen
-docx
-pptx 
-```
+### Example Commands
 
-To install the Python dependencies using `pip`, run:
+- **Basic Search:**  
+  Search for the term "example" in the current directory:
+  ```bash
+  os "example"
+  ```
 
-```bash
-pip install -r requirements.txt
-```
+- **Search Specific File Types:**  
+  Search for "example" in `.txt` and `.md` files within a specified directory:
+  ```bash
+  os /path/to/search "example" -t "*.txt" "*.md"
+  ```
 
-## Usage
+- **Verbose Search with Error Ignoring:**  
+  Get detailed command output and continue despite errors:
+  ```bash
+  os "example" -v -i
+  ```
 
-```bash
-python search_files.py [-h] [-t [TYPES [TYPES ...]]] [-p PATH] [-v] [-l] [-i] [-s [SKIP [SKIP ...]]] [-a] [-b] search_string
-```
+- **Output in JSON Format:**  
+  Get search results as structured JSON:
+  ```bash
+  os "example" -j
+  ```
 
-### Positional Arguments
+## License 📄
 
-- `search_string`: The string to search for.
+This project is licensed under the GNU Affero General Public License v3.0. See the [LICENSE](./LICENSE) file for details.
 
-### Optional Arguments
+## Author 👤
 
-- `-t`, `--types`: Optional list of file types to search in (e.g., `*.txt`, `*.md`, `*.jpg`). If not provided, all files will be searched.
-- `-p`, `--path`: The path to search in. If not provided, the current directory will be used.
-- `-v`, `--verbose`: Print the executed commands.
-- `-l`, `--list`: Only list files containing the search string, without additional information.
-- `-i`, `--ignore`: Ignore errors and continue searching.
-- `-s`, `--skip`: Optional list of file extensions to skip (e.g., `.zip`, `.tar`, `.gz`).
-- `-a`, `--add`: Extend the default list of skipped files.
-- `-b`, `--binary-files`: Treat binary files as text for searching.
+**Kevin Veen-Birkenbach**  
+- Email: [kevin@veen.world](mailto:kevin@veen.world)  
+- Website: [https://www.veen.world/](https://www.veen.world/)
 
-### Examples
+## AI Assistance 🤖
 
-Search for the string "example" in all files in the current directory:
-
-```bash
-python search_files.py "example"
-```
-
-Search for the string "example" in `.txt` and `.md` files in a specific directory:
-
-```bash
-python search_files.py "example" -t "*.txt" "*.md" -p /path/to/search
-```
-
-Search for the string "example" in all files and print the executed commands:
-
-```bash
-python search_files.py "example" -v
-```
-
-Search for the string "example" and only list the files containing the string:
-
-```bash
-python search_files.py "example" -l
-```
-
-Search for the string "example" and ignore any errors encountered:
-
-```bash
-python search_files.py "example" -i
-```
-
-## Setup
-
-To install the required Python packages, run:
-
-```bash
-pip install -r requirements.txt
-```
-
-## Author
-
-- **Kevin Veen-Birkenbach**
-  - Email: kevin@veen.world
-  - Website: [https://www.veen.world/](https://www.veen.world/)
-
-## License
-
-This project is licensed under the GNU Affero General Public License, Version 3, 19 November 2007.
-
-## AI Assistance
-
-This code was generated with the help of AI. For more details, refer to this [chat conversation with ChatGPT](https://chatgpt.com/share/7eae44ac-d4c0-4978-9e8e-bfa85dcc4b75).
+This project was developed with the help of AI. Enjoy seamless file content searching with OmniSearch!
