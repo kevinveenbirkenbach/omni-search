@@ -3,5 +3,5 @@ pdf2image
 xlrd
 PyPDF2
 mutagen
-docx
-pptx 
+python-docx
+python-pptx 
