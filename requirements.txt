@@ -5,3 +5,4 @@ PyPDF2
 mutagen
 python-docx
 python-pptx 
+pathspec

@@ -61,6 +61,12 @@ if __name__ == "__main__":
         help="Output results in JSON format."
     )
 
+    parser.add_argument(
+        "--no-gitignore",
+        action="store_true",
+        help="Ignore .gitignore rules (by default, they are respected)."
+    )
+
     args = parser.parse_args()
 
     default_skip = [
@@ -74,6 +80,7 @@ if __name__ == "__main__":
         '.log',
         '.old',
         '.pod',
+        '.pyc',
         '.tar',
         '.zip',
         '.xcf',
@@ -84,7 +91,18 @@ if __name__ == "__main__":
     else:
         skip_patterns = [pattern.lower() for pattern in args.skip]
 
-    searcher = Searcher(args.search_strings, args.types, args.paths, args.verbose, args.ignore, skip_patterns, args.binary_files, args.case_sensitive, args.fixed)
+    searcher = Searcher(
+        args.search_strings,
+        args.types,
+        args.paths,
+        args.verbose,
+        args.ignore,
+        skip_patterns,
+        args.binary_files,
+        args.case_sensitive,
+        args.fixed,
+        not args.no_gitignore
+    )
     results = searcher.search_files()
 
     if args.json:

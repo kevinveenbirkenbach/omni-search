@@ -1,0 +1,4 @@
+pacman:
+  - tesseract
+  - tesseract-data-eng
+  - perl-image-exiftool
